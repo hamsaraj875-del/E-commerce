@@ -1,0 +1,88 @@
+.boxes{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  margin:10px;
+  margin-top:20px;
+  min-width: 250px;
+  max-width:280px;
+  height:320px;
+  border:1px solid black;
+  border-radius:12px;
+  padding:10px;
+  color:white;
+}
+.nameAndOffer{
+  color:white;
+  padding:0px 10px 0px 10px;
+  display:flex;
+  flex-wrap:wrap;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+#imageBox{
+  height:160px;
+  display:flex;
+  justify-content:center;
+  margin:1px;
+  border-radius:10px;
+}
+.paragraph {
+  margin-left:30px;
+  font-size:40px;
+  background: linear-gradient(to right, #7bd7ff, #4b4eff);
+  background-clip: text;
+  color: transparent;
+}
+.box:hover{
+  border:none;
+  transform:translateY(-2px);
+  box-shadow:0px 2px 4px black, 0px 4px 8px black;
+}
+.name{
+  font-size:25px;
+  color:rgb(255, 122, 255);
+}
+.offer{
+  font-size:15px;
+}
+.editAndDelete{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-evenly;
+  float:bottom;
+}
+#edit,#delete{
+  margin:8px;
+  min-width:80px;
+  height:25px;
+  color:white;
+  background-color:transparent;
+  border:1px solid black;
+}
+#edit:hover{
+  border-radius:15px;
+  background-color:rgb(49, 251, 157);
+  color:black;
+}
+#delete:hover{
+  border-radius:15px;
+  background-color:orangered;
+  color:black;
+}
+#description{
+  margin-top:10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+#price{
+  margin-top:5px;
+}

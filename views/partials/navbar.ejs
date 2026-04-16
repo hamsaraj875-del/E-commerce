@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce-App</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div class="wholeBody">
+    <div class="navbar">
+      <div class="heading">
+        <p id="Name" align="center"></p>
+        <div id="cursor"></div>
+      </div>
+      <div class="navbarButtonCollection">
+        <a href="/home" class="<%=page=='home'?'navbarButtonActive':'navbarButton'%>">Home</a>
+        <div class="searchBar">
+          <input id="searchInput" type="text" placeholder="Seach.." name="searchValue">
+          <button id="searchButton">🔍</button>
+        </div>
+        <%if(userType == "Host"){%>
+          <a href="/add" class="<%=page=='add'?'navbarButtonActive':'navbarButton'%>">Add</a>
+        <%}%>
+        <%if(userType == "User" || userType == "Guest"){%>
+          <a href="/cart" class="<%=page=='cart'?'navbarButtonActive':'navbarButton'%>">Cart<span id="notification"><%=typeof notify!='undefined'?notify:0%></span></a>
+          <a href="/history" class="<%=page=='history'?'navbarButtonActive':'navbarButton'%>">History</a>
+        <%}%>
+        <div class="accountDetails">
+          <button id="extender" onclick="Extender(event)">⋮</button>
+          <p><%=typeof firstName!='undefined' ? firstName:''%></p>
+        </div>
+      </div>
+      <div class="extender">
+        <div class="extenderCollection">
+          <a href="account"><i class="fa-solid fa-user-circle"></i></a><span style="color:white;font-family: 'Rubik', sans-serif ;">Profile</span> <hr>
+          <p class="showName"><%=typeof userName!='undefined'?userName:'No Account found'%></p><hr>
+          <p class="showName">Type:<%=userType%></p><hr>
+          <a href="/home"><button class="logout">Home</button></a><hr>
+          <a href="/cart"><button class="logout">Cart</button></a><hr>
+          <a href="/history"><button class="logout">History</button></a><hr>
+          <a href="deleteHistory"><button class="logout">Delete History</button></a><hr>
+          <a href="logout"><button class="logout"><%=typeof userName!='undefined'?'Logout':'Login'%></button></a><hr>
+        </div>
+      </div>
+      <%if(typeof message!='undefined'){%>
+        <div id="notifyDiv">
+          <p id="notify"><%=message%></p>
+        </div>
+      <%}%>
+    </div>
+  </div>
+  <script src="/script.js"></script>
+    <script>
+      window.onload = function(){
+        notification();
+      }
+    </script>
+</body>
+</html>

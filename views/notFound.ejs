@@ -1,0 +1,14 @@
+<%-include("./partials/navbar")%>
+<link rel="stylesheet" href="cart.css">
+<% if(typeof cartList=='undefined'){%>
+  <div class="videoDiv">
+    <div class="videoBox">
+      <video src="/videos/notFound.mp4" height="500px;" autoplay muted loop></video>
+    </div>
+    <p class="paragraph"><span>Oops! </span><br>404 Page not Found !</p>
+  </div>
+  <script>
+    const video = document.querySelector("video");
+    video.playbackRate = 0.8;
+  </script>
+<%}%>

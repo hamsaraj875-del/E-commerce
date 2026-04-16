@@ -1,0 +1,232 @@
+body{
+  background: linear-gradient(135deg, #141e30, #243b55);
+  min-height:100vh;
+  margin:0px;
+  font-family: "Rubik", sans-serif;
+}
+button{
+  cursor:pointer;
+}
+.heading{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
+#extender{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:none;
+  color:white;
+  font-size:25px;
+  background-color:transparent;
+}
+#extender:hover{
+  background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
+}
+.wholeBody{
+  min-height:fit-content;
+}
+#cursor{
+  width:3px;
+  height:25px;
+  background-color:white;
+  margin-left:4px;
+}
+#Name{
+  min-height:30px;
+  color:white;
+  text-align:center;
+  font-size:25px;
+  font-style:italic;
+  text-shadow:0px 0px 2px rgb(107, 213, 255),0px 0px 6px rgb(0, 141, 197);
+}
+p{
+  margin:0px;
+}
+.navbar{
+  min-height:80px;
+  width:100%;
+  background-color:black;
+}
+.navbarButtonCollection{
+  height:70px;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+  align-items:center;
+}
+.navbarButton{
+  position:relative;
+  text-align:center;
+  padding:2px;
+  min-width: 100px;
+  height:30px;
+  background-color:black;
+  color:white;
+  border:none;
+  font-size:15px;
+  margin-top:5px;
+  border-radius:15px;
+  transition-duration:0.5s;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration:none;
+}
+.navbarButton:hover{
+  transform:scale(1.08);
+  border-radius:15px;
+  background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
+
+}
+#notification {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  min-width: 16px;
+  height: 16px;
+  background-color: orangered;
+  color:white;
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbarButtonActive{
+  position:relative;
+  border-radius:15px;
+  background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
+  min-width: 100px;
+  min-height:30px;
+  color:white;
+  border:none;
+  font-size:15px;
+  margin-top:10px;
+  border-bottom:3px solid rgb(0,255,217);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration:none;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  height:40px;
+  width: 300px;
+  margin: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 60px;
+  padding: 5px;
+}
+
+#searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 18px;
+  border-radius: 20px;
+  font-size: 16px;
+  background: transparent;
+  color: white;
+}
+
+#searchInput::placeholder {
+  color: #aaa;
+}
+
+#searchButton {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#searchButton:hover {
+  transform: scale(1.1);
+}
+
+.searchBar:focus-within {
+  box-shadow: 0 0 0 3px rgba(37,117,252,0.3);
+}
+
+.extender{
+  display:none;
+}
+.extenderActive{
+  border-radius:15px;
+  padding-top:10px;
+  background-color:black;
+  display:flex;
+  flex-direction:column;
+  right:10px;
+  top:15%;
+  width:250px;
+  min-height:400px;
+  position:fixed;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.extenderCollection{
+  display:flex;
+  flex-direction:column;
+  font-size:20px;
+  gap:5px;
+}
+hr{
+  background-color:white;
+  width:100%;
+}
+.logout{
+  padding:5px;
+  min-width:150px;
+  min-height:30px;
+  background-color:transparent;
+  color:white;
+  font-size:20px;
+  border-radius:15px;
+  border:none;
+}
+.logout:hover{
+  background-color:#2A3942;
+}
+.showName{
+  color:white;
+  font-style:italic;
+  font-size:20px;
+  font-family: "Rubik", sans-serif !important;
+}
+hr{
+  width:100%;
+  background-color:white;
+}
+i{
+  font-size:50px;
+}
+#notifyDiv {
+  display: flex;
+  min-width: 200px;
+  min-height: 40px;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background-color: rgba(241, 238, 238,0.6);
+  color: white;
+  align-items: center;
+  justify-content: center;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+#notifyDiv.notifyActive{
+  opacity:1;
+}

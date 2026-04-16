@@ -1,0 +1,28 @@
+{
+  "name": "e-commerce-app",
+  "version": "1.0.0",
+  "description": "Nothing own commerce app",
+  "license": "ISC",
+  "author": "HAMSARAJ",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon routes/app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongodb-session": "^5.0.0",
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "mongodb": "^7.1.1",
+    "mongoose": "^9.3.3",
+    "multer": "^2.1.1",
+    "node": "^25.8.2",
+    "nodemon": "^3.1.14",
+    "path": "^0.12.7"
+  }
+}

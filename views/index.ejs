@@ -1,0 +1,44 @@
+<%-include("./partials/navbar")%>
+<link rel="stylesheet" href="/index.css">
+<% if(typeof itemList=='undefined'){%>
+  <div class="videoDiv">
+    <div class="videoBox">
+      <video src="/videos/NoContent.mp4" height="300px;" autoplay muted loop></video>
+    </div>
+    <p class="paragraph">No Items Found !</p>
+  </div>
+  <script>
+    const video = document.querySelector("video");
+    video.playbackRate = 0.8;
+  </script>
+<%}%>
+<div class="boxes">
+  <%if(itemList.length >0) {%>
+    <%itemList.forEach(items=>{%>
+      <div class="box">
+        <div id="imageBox">
+          <img src="/uploads/<%=items.photo%>">
+        </div>
+        <div id="contentBox">
+          <div class="nameAndOffer">
+            <div class="name"><%=items.itemName%>
+            </div>
+            <div class="offer"><%=((Number(items.realPrice)-Number(items.discountPrice))/Number(items.realPrice)*100).toFixed(2) %>% OFF 🎉
+            </div>
+          </div>
+          <div id="price">Price : <span style="text-decoration:line-through">₹ <%=items.realPrice%></span><span style="margin-left:10px">₹ <%=items.discountPrice%></span>
+          </div>
+          <div id="description"><%=items.description%></div>
+          <div class="editAndDelete">
+            <div>
+              <a href=<%=userType=="Host"?"/edit/":"/buy/"%><%=items._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
+            </div>
+            <form method="POST" action=<%=userType=="Host"?"/delete/":"/addToCart/"%><%=items._id%>>
+              <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Add To Cart"%></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <%})%>
+  <%}%>
+</div>

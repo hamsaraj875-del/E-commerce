@@ -1,0 +1,33 @@
+<%-include("./partials/navbar")%>
+<link rel="stylesheet" href="/add.css">
+<div class="wholeAdd">
+  <div class="formContainer">
+    <div id="heading">
+      <p>Details..</p>
+    </div>
+    <form class="addForm" action="/add" enctype="multipart/form-data" method="POST">
+      <%if(typeof oldInput!='undefined'){%>
+        <input type="hidden" name="id" value="<%=oldInput._id%>" required>
+      <%}%>
+      <div id="itemName" class="inputs">
+        <input type="text" placeholder="Enter the items name" name="itemName" value="<%=typeof oldInput!='undefined'?oldInput.itemName:''%>" required>
+      </div>
+      <div id="realPrice" class="inputs">
+        <input type="number" name="realPrice" placeholder="Enter the original price" value="<%=typeof oldInput!='undefined'?oldInput.realPrice:''%>" required>
+      </div>
+      <div id="discountPrice" class="inputs">
+        <input type="number" name="discountPrice" placeholder="Enter your today's offer price" value="<%=typeof oldInput!='undefined'?oldInput.discountPrice:''%>"required>
+      </div>
+      <div id="fileInput" class="inputs">
+        <input type="file" name="file" accept="image/*">
+      </div>
+      <div id="description" class="inputs">
+        <textarea placeholder="Enter the features of items" name="description"  required><%=typeof oldInput!='undefined'?oldInput.description:''%></textarea>
+      </div>
+      <div>
+        <button type="submit" id="submitButton"><%=typeof oldInput!='undefined'?'Update':'Submit'%></button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="/add.js"></script>

@@ -1,0 +1,41 @@
+<%-include("./partials/navbar")%>
+<link rel="stylesheet" href="cart.css">
+<% if(typeof cartList=='undefined' || cartList.length == 0){%>
+  <div class="videoDiv">
+    <div class="videoBox">
+      <video src="/videos/NoContent.mp4" height="300px;" autoplay muted loop></video>
+    </div>
+    <p class="paragraph">No Items Found !</p>
+  </div>
+  <script>
+    const video = document.querySelector("video");
+    video.playbackRate = 0.8;
+  </script>
+<%}else{%>
+  <div class="cartListBody">
+    <%if(cartList!='undefined'){%>
+      <%cartList.forEach(cart=>{%>
+        <div class="cartBoxContainer">
+          <div class="cartBox">
+            <div class="imageBox">
+              <img id="image" src="/uploads/<%=cart.itemId.photo%>">
+            </div>
+            <div class="container">
+              <p id="heading"><%=cart.itemId.itemName%></p>
+              <%=cart.itemId.description%>
+              <div class="editAndDelete">
+                <div>
+                  <a href="<%=userType=='Host'?'/edit/':'/buy/'%><%=cart.itemId._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
+                </div>
+                <form method="POST" action="/deleteCart/<%=cart._id%>">
+                  <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Remove From Cart"%></button>
+                </form>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      <%})%>
+    <%}%>
+  </div>
+<%}%>

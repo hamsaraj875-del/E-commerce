@@ -31,9 +31,9 @@
           <div id="description"><%=items.description%></div>
           <div class="editAndDelete">
             <div>
-              <a href=<%=userType=="Host"?"/edit/":"/buy/"%><%=items._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
+              <a href="<%=userType=='Host'?'/edit/':'/buy/'%><%=items._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
             </div>
-            <form method="POST" action=<%=userType=="Host"?"/delete/":"/addToCart/"%><%=items._id%>>
+            <form method="POST" action="<%=userType=='Host'?'/delete/':'/addToCart/'%><%=items._id%>">
               <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Add To Cart"%></button>
             </form>
           </div>

@@ -12,14 +12,14 @@ exports.homePage = async(req,res,next)=>{
   try{
     const itemList = await(database.find());
     const notify = await cartDatabase.find({userId:req.session.userId});
-    if(req.session.loggedIn){
+    if(req.session.isLoggedIn){
       const userName = req.session.userName;
-      return res.render("index",{message:"👋 Welcome back! 🎉 Login successful ✔️",notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
+      return res.render("index",{message:req.session.message,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
     }
+    console.log(req.session.isLoggedIn);
     res.render("index",{message:"🎉 Welcome back! ",notify:notify.length,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
-    itemList=[];
     console.log(err);
     res.redirect("/home");
   }
@@ -36,6 +36,7 @@ exports.add = (req,res,next)=>{
     return res.render("add",{notify:notify.length,page:"add",userType:req.session.userType});
   })
   .catch(err=>{
+    req.session.message = "Unabled to add";
     return res.redirect("/home");
   })
 }
@@ -48,6 +49,7 @@ exports.savingData = (req,res,next)=>{
     if(!oldDetails){
       const details = new database({itemName,realPrice,discountPrice,photo,description});
       details.save().then(()=>{
+        req.session.message = "Data saved successfully";
         return res.redirect("/home");
       })
     }else{
@@ -68,11 +70,13 @@ exports.savingData = (req,res,next)=>{
 //displaying the editing page
 exports.edit=(req,res,next)=>{
   const itemId = req.params.id;
+  console.log(itemId);
   database.findById(itemId).then((itemDetails)=>{
     cartDatabase.find({userId:req.session.userId}).then((notify)=>{
       return res.render("add",{notify:notify.length,oldInput:itemDetails,page:"add",userType:req.session.userType,userName:req.session.userName});
     })
     .catch(err=>{
+      console.log(err);
       return res.redirect("/home");
     })
   })
@@ -83,7 +87,6 @@ exports.delete = (req,res,next)=>{
   database.findById(req.params.id).then((item)=>{
     fs.unlink(path.join(__dirname,"../public/uploads",item.photo),(err)=>{
       if(err){
-        console.log(err);
         return res.redirect("/home");
       }
       database.findByIdAndDelete(req.params.id).then(()=>{
@@ -101,7 +104,8 @@ exports.checkCart=(req,res,next)=>{
   cartDatabase.findOne({itemId:itemId,userId:userId}).then((found)=>{
     if(!found){
       cartDetails.save().then(()=>{
-        return res.redirect("/cart");
+        req.session.message="🛍️ Nice choice! Item added";
+        return res.redirect("/home");
       })
     }else{
       return res.redirect("/home");

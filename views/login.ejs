@@ -25,9 +25,9 @@
             <div class="displayToggle">User</div>
             <a href="/home" style="margin-top:10px;color:red">Guest</a>
           </div>
-          <input type="hidden" class="hiddenInput" name="userType" value="User">
-          <input class="userInput" type="email" placeholder="Enter the email" name="email">
-          <input class="userInput" type="password" placeholder="Enter the password" name="password">
+          <input type="hidden" class="hiddenInput" name="userType" value="User" required>
+          <input class="userInput" type="email" placeholder="Enter the email" name="email" required>
+          <input class="userInput" type="password" placeholder="Enter the password" name="password" required>
           <div class="Buttons">
             <a href="/signUp"><button type="button" class="loginButtons">Sign Up</button></a>
             <button class="loginButtons type="submit">Login</button>

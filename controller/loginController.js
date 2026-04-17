@@ -25,13 +25,14 @@ exports.loginCheck=(req,res,next)=>{
     if(details.userType === req.body.userType){
       bcrypt.compare(req.body.password,details.password).then(result=>{
         if(result){
-          req.session.loggedIn=true;
+          req.session.isLoggedIn=true;
           req.session.userName=details.firstName;
           req.session.userType=details.userType;
           req.session.userId=details._id.toString();
           database.find().then(list=>{
-            cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-              return res.render("index",{notify:notify.length,page:"home",itemList:list,userName:req.session.userName,userType:req.session.userType})
+            cartDatabase.find({userId:req.session.userId}).then((notify)=>{             
+              req.session.message = "👋 Welcome back! 🎉 Login successful ✔️";
+              return res.redirect("/home");
             })
             .catch(err=>{
               return res.render("index",{notify:0,page:"home",itemList:list,userName:req.session.userName,userType:req.session.userType})
@@ -42,7 +43,6 @@ exports.loginCheck=(req,res,next)=>{
             return res.render('login',{error:"invalid username or password"});
           });
         }else{
-          console.log(err);
           return res.render('login',{error:"invalid username or password"});
         }
       })
@@ -84,6 +84,9 @@ exports.confirmSignUp = [
       throw new Error("Email already exists");
     }
   }),
+  check('userType')
+  .notEmpty()
+  .withMessage('Toggle usertype'),
 
   check('password')
   .notEmpty()
@@ -108,25 +111,28 @@ exports.confirmSignUp = [
     return true;
   }),
   (req,res,next)=>{
-    const {firstName,surName,email,password} = req.body;
     const errors = validationResult(req);
+    console.log(errors.array());
     if(errors.isEmpty()){
       const {userType,firstName,surName,email,password} = req.body;
-      bcrypt.hash(password,8).then(hashPassword=>{
+      console.log("before bcrypt")
+      bcrypt.hash(password,8).then(password=>{
         const details = new userDatabase({firstName,surName,email,password,userType});
         details.save().then((details)=>{
-          req.session.loggedIn = true;
+          req.session.isLoggedIn = true;
           req.session.userName = details.firstName;
           req.session.userType = details.userType;
-          req.session.userId = details._id;
+          req.session.userId = details._id.toString();
           return res.redirect("/home");
         })
         .catch(err=>{
+          console.log("error hit");
           console.log(err);
           return res.redirect("/signUp");
         })
       })
       .catch(err=>{
+        console.log("error hit");
         return res.redirect("/login");
       })
     }

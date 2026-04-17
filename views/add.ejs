@@ -19,7 +19,7 @@
         <input type="number" name="discountPrice" placeholder="Enter your today's offer price" value="<%=typeof oldInput!='undefined'?oldInput.discountPrice:''%>"required>
       </div>
       <div id="fileInput" class="inputs">
-        <input type="file" name="file" accept="image/*">
+        <input type="file" name="file" accept="image/*" required>
       </div>
       <div id="description" class="inputs">
         <textarea placeholder="Enter the features of items" name="description"  required><%=typeof oldInput!='undefined'?oldInput.description:''%></textarea>

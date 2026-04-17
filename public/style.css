@@ -158,9 +158,25 @@ p{
 }
 
 .extender{
-  display:none;
+  transform:translateY(0px);
+  background-color:black;
+  display:flex;
+  flex-direction:column;
+  right:10px;
+  top:15%;
+  width:250px;
+  min-height:400px;
+  position:fixed;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transform:translateX(20px);
+  transition:opacity 0.5s ease,transform 0.5s ease;
 }
 .extenderActive{
+  opacity:1;
+  transform:translateX(0px);
   border-radius:15px;
   padding-top:10px;
   background-color:black;
@@ -220,7 +236,9 @@ i{
   bottom: 10%;
   transform: translateX(-50%);
   border-radius: 10px;
-  background-color: rgba(241, 238, 238,0.6);
+  background-color: rgba(241, 238, 238,0.2);
+  padding-left:6px;
+  padding-right:6px;
   color: white;
   align-items: center;
   justify-content: center;

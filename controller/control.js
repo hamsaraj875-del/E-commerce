@@ -14,9 +14,10 @@ exports.homePage = async(req,res,next)=>{
     const notify = await cartDatabase.find({userId:req.session.userId});
     if(req.session.isLoggedIn){
       const userName = req.session.userName;
-      return res.render("index",{message:req.session.message,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
+      let message = req.session.message;
+      req.session.message ="";
+      return res.render("index",{message:message,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
     }
-    console.log(req.session.isLoggedIn);
     res.render("index",{message:"🎉 Welcome back! ",notify:notify.length,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
@@ -108,6 +109,7 @@ exports.checkCart=(req,res,next)=>{
         return res.redirect("/home");
       })
     }else{
+      req.session.message="🛍️ Nice choice! Item already there"
       return res.redirect("/home");
     }
   })
@@ -122,6 +124,7 @@ exports.checkCart=(req,res,next)=>{
 exports.deleteCart = async(req,res,next)=>{
   try{
     await cartDatabase.findByIdAndDelete(req.params.id);
+    req.session.message="👍 Gone! Item removed";
     return res.redirect("/cart");
   }
   catch(err){
@@ -135,7 +138,9 @@ exports.displayCart = async(req,res,next)=>{
   try{
     const cartList = await cartDatabase.find({userId:new mongoose.Types.ObjectId(req.session.userId)}).populate("itemId");
     cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-      return res.render("cart",{notify:notify.length,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
+      let message = req.session.message;
+      req.session.message="";
+      return res.render("cart",{message:message,notify:notify.length,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
     })
     .catch(err=>{
       return res.redirect("/home");

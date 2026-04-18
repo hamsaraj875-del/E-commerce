@@ -15,6 +15,7 @@
   border-radius:12px;
   padding:10px;
   color:white;
+  position:relative;
 }
 .nameAndOffer{
   color:white;
@@ -40,6 +41,7 @@
   color: transparent;
 }
 .box:hover{
+  cursor:pointer;
   border:none;
   transform:translateY(-2px);
   box-shadow:0px 2px 4px black, 0px 4px 8px black;
@@ -56,7 +58,13 @@
   flex-direction:row;
   align-items:center;
   justify-content:space-evenly;
-  float:bottom;
+  bottom:5px;
+  left:0;
+  width:100%;
+  position:absolute;
+}
+.contentBox{
+  position:relative;
 }
 #edit,#delete{
   margin:8px;
@@ -71,6 +79,9 @@
   background-color:rgb(49, 251, 157);
   color:black;
 }
+img{
+  border-radius:15px;
+}
 #delete:hover{
   border-radius:15px;
   background-color:orangered;
@@ -80,7 +91,7 @@
   margin-top:10px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 #price{

@@ -1,0 +1,17 @@
+<%-include("./partials/navbar")%>
+<div>
+  <div class="imageDiv">
+    <img src="/uploads/<%=itemData.photo%>">
+  </div>
+  <div class="content">
+    <div id="description"><%=itemData.description%></div>
+    <div id="priceDetails">      
+      <div id="totalPrice">Total Bill without discount: ₹ <%=itemData.realPrice%></div>
+      <div id="totalDiscountPrice">Payable Bill: ₹ <%=itemData.discountPrice%></div>
+      <div id="save">You can save upto: ₹ <%=itemData.realPrice-itemData.discountPrice%> 🎉</div>
+    </div>
+    <div>
+      <button id="buy">Place Order</button>
+    </div>
+  </div>
+</div>

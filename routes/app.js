@@ -84,9 +84,8 @@ async function cartUser(req,res,next){
   if(req.session.isLoggedIn == true){
     return next();
   }
-  console.log(req.session.isLoggedIn);
-  const itemList = await database.find();
-  return res.render("index",{message:"Login to Use cart",itemList,page:"home",userType:req.session.userType})
+  req.session.message = "Login to use cart";
+  res.redirect("/home");
 }
 
 //session default Declaration
@@ -106,6 +105,7 @@ app.post("/add",checkHost,controller.savingData);
 app.get("/edit/:id",checkHost,controller.edit);
 app.post("/delete/:id",checkHost,controller.delete);
 app.get("/cart",cartUser,checkUser,controller.displayCart);
+app.get("/details/:id",controller.itemDetails);
 app.post("/addToCart/:id",controller.checkCart);
 app.post("/deleteCart/:id",controller.deleteCart);
 app.get("/history",cartUser,checkUser,controller.displayHistory);

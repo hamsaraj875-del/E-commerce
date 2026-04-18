@@ -46,7 +46,7 @@
           <a href="logout"><button class="logout"><%=typeof userName!='undefined'?'Logout':'Login'%></button></a><hr>
         </div>
       </div>
-      <%if(typeof message!='undefined' && message.length>0){%>
+      <%if(typeof message!='undefined' && message){%>
         <div id="notifyDiv">
           <p id="notify"><%=message%></p>
         </div>

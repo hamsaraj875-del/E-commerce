@@ -15,7 +15,7 @@
 <div class="boxes">
   <%if(itemList.length >0) {%>
     <%itemList.forEach(items=>{%>
-      <div class="box">
+      <div class="box" onclick="itemClick('<%=items._id%>')">
         <div id="imageBox">
           <img src="/uploads/<%=items.photo%>">
         </div>
@@ -42,3 +42,4 @@
     <%})%>
   <%}%>
 </div>
+<script src="/indexScript.js"></script>

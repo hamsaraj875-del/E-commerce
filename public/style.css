@@ -160,6 +160,7 @@ p{
 .extender{
   transform:translateY(0px);
   background-color:black;
+  border-radius:15px;
   display:flex;
   flex-direction:column;
   right:10px;

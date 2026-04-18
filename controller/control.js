@@ -8,17 +8,24 @@ const fs = require("fs");
 const database = require('../models/database');
 const cartDatabase = require("../models/cartDatabase");
 
+//Message handler function 
+
+function createHomeMessage(req){
+  let message = req.session.message;
+  req.session.message = null;
+  return message;
+}
+
 exports.homePage = async(req,res,next)=>{
   try{
     const itemList = await(database.find());
     const notify = await cartDatabase.find({userId:req.session.userId});
+    let mes = createHomeMessage(req);
     if(req.session.isLoggedIn){
       const userName = req.session.userName;
-      let message = req.session.message;
-      req.session.message ="";
-      return res.render("index",{message:message,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
+      return res.render("index",{message:mes,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
     }
-    res.render("index",{message:"🎉 Welcome back! ",notify:notify.length,itemList,page:"home",userType:req.session.userType});
+    res.render("index",{message:mes,notify:notify.length,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
     console.log(err);
@@ -100,6 +107,10 @@ exports.delete = (req,res,next)=>{
 //Checking Cart
 exports.checkCart=(req,res,next)=>{
   const itemId = req.params.id;
+  if(typeof req.session.userId==='undefined'){
+    req.session.message = "login to use Cart";
+    return res.redirect("/home");
+  }
   const userId = new mongoose.Types.ObjectId(req.session.userId);
   const cartDetails = new cartDatabase({itemId,userId});
   cartDatabase.findOne({itemId:itemId,userId:userId}).then((found)=>{
@@ -133,14 +144,35 @@ exports.deleteCart = async(req,res,next)=>{
   }
 }
 
+
+//Cart summing function
+function cartSum(cartList){
+  let payPrice = 0;
+  let discountPrice = 0;
+  for(let i=0;i<cartList.length;i++){
+    payPrice += cartList[i].itemId.realPrice;
+    discountPrice += cartList[i].itemId.discountPrice;
+  }
+  console.log(payPrice,discountPrice);
+  return {payPrice,discountPrice};
+}
+
+//cart message function
+function createCartMessage(req){
+  let message = req.session.message;
+  req.session.message = null;
+  return message;
+}
+
 //Display Cart 
 exports.displayCart = async(req,res,next)=>{
   try{
     const cartList = await cartDatabase.find({userId:new mongoose.Types.ObjectId(req.session.userId)}).populate("itemId");
+    const sum = cartSum(cartList);
+    console.log(sum);
     cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-      let message = req.session.message;
-      req.session.message="";
-      return res.render("cart",{message:message,notify:notify.length,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
+      let message = createCartMessage(req);
+      return res.render("cart",{message:message,sum:sum,notify:notify.length,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
     })
     .catch(err=>{
       return res.redirect("/home");
@@ -151,6 +183,24 @@ exports.displayCart = async(req,res,next)=>{
     return res.redirect("/home");
   }
 }
+
+
+// Item Details display
+exports.itemDetails = async(req,res,next)=>{
+  console.log("itemDetails exicutions");
+  const itemId = req.params.id;
+  try{
+    const itemData = await database.findById(itemId);
+    return res.render("details",{itemData:itemData,page:"home"});
+  }
+  catch(err){
+    req.session.message = "❌ Something went wrong";
+    console.log(err);
+    return res.redirect("/home");
+  }
+  
+}
+
 
 //Display History 
 exports.displayHistory = (req,res,next)=>{

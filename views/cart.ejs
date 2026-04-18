@@ -12,30 +12,37 @@
     video.playbackRate = 0.8;
   </script>
 <%}else{%>
-  <div class="cartListBody">
-    <%if(cartList!='undefined'){%>
-      <%cartList.forEach(cart=>{%>
-        <div class="cartBoxContainer">
-          <div class="cartBox">
-            <div class="imageBox">
-              <img id="image" src="/uploads/<%=cart.itemId.photo%>">
-            </div>
-            <div class="container">
-              <p id="heading"><%=cart.itemId.itemName%></p>
-              <%=cart.itemId.description%>
-              <div class="editAndDelete">
-                <div>
-                  <a href="<%=userType=='Host'?'/edit/':'/buy/'%><%=cart.itemId._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
+  <div class="wholeCart">
+    <div class="cartListBody">
+      <%if(cartList!='undefined'){%>
+        <%cartList.forEach(cart=>{%>
+          <div class="cartBoxContainer">
+            <div class="cartBox">
+              <div class="imageBox">
+                <img id="image" src="/uploads/<%=cart.itemId.photo%>">
+              </div>
+              <div class="container">
+                <p id="heading"><%=cart.itemId.itemName%></p>
+                <%=cart.itemId.description%>
+                <div class="editAndDelete">
+                  <div>
+                    <a href="<%=userType=='Host'?'/edit/':'/buy/'%><%=cart.itemId._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
+                  </div>
+                  <form method="POST" action="/deleteCart/<%=cart._id%>">
+                    <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Remove From Cart"%></button>
+                  </form>
                 </div>
-                <form method="POST" action="/deleteCart/<%=cart._id%>">
-                  <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Remove From Cart"%></button>
-                </form>
               </div>
             </div>
-            
           </div>
-        </div>
-      <%})%>
-    <%}%>
+        <%})%>
+      <%}%>
+    </div>
+    <div class="bottomBuy">
+      <div id="totalPrice">Total Bill without discount: ₹ <%=sum.payPrice%></div>
+      <div id="totalDiscountPrice">Payable Bill: ₹ <%=sum.discountPrice%></div>
+      <div id="save">You can save upto: ₹ <%=sum.payPrice-sum.discountPrice%> 🎉</div>
+      <button id="buy">Place Order</button>
+    </div>
   </div>
 <%}%>

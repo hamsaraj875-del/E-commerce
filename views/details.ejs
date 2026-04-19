@@ -1,17 +1,28 @@
 <%-include("./partials/navbar")%>
-<div>
+<link rel="stylesheet" href="/details.css">
+<div class="wholeDetails">
   <div class="imageDiv">
     <img src="/uploads/<%=itemData.photo%>">
   </div>
   <div class="content">
     <div id="description"><%=itemData.description%></div>
-    <div id="priceDetails">      
-      <div id="totalPrice">Total Bill without discount: ₹ <%=itemData.realPrice%></div>
-      <div id="totalDiscountPrice">Payable Bill: ₹ <%=itemData.discountPrice%></div>
-      <div id="save">You can save upto: ₹ <%=itemData.realPrice-itemData.discountPrice%> 🎉</div>
-    </div>
-    <div>
-      <button id="buy">Place Order</button>
+    <div id=date></div>
+    <div class="delivery">
+      <div id="deliveryDate">
+      </div>
+      <div id="deliveryDateLimit">
+      </div>
     </div>
   </div>
 </div>
+
+<div class="bottomBuy">      
+  <div id="totalPrice">Total Bill without discount: ₹ <%=itemData.realPrice%></div>
+  <div id="totalDiscountPrice">Payable Bill: ₹ <%=itemData.discountPrice%></div>
+  <div id="save">You can save upto: ₹ <%=itemData.realPrice-itemData.discountPrice%> 🎉</div>
+  <button id="buy" onclick="cart(itemData._id)">Place Order</button>
+  <form action="/addToCart/<%=itemData._id%>" method="POST">
+    <button id="buy">Add to Cart</button>
+  </form>
+</div>
+<script src="/detailScript.js"></script>

@@ -59,7 +59,7 @@ body{
   align-items:center;
 }
 #loginBlock:hover{
-  box-shadow:0px 0px 3px rgb(190, 0, 248), 0px 0px 9px #e07ffe;
+  box-shadow:0px 3px 5px black;
   padding:50px;
 }
 .errorBlock{

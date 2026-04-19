@@ -187,11 +187,10 @@ exports.displayCart = async(req,res,next)=>{
 
 // Item Details display
 exports.itemDetails = async(req,res,next)=>{
-  console.log("itemDetails exicutions");
   const itemId = req.params.id;
   try{
     const itemData = await database.findById(itemId);
-    return res.render("details",{itemData:itemData,page:"home"});
+    return res.render("details",{itemData:itemData,userType:req.session.userType,page:"home"});
   }
   catch(err){
     req.session.message = "❌ Something went wrong";

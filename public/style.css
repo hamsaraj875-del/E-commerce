@@ -174,8 +174,11 @@ p{
   opacity:0;
   transform:translateX(20px);
   transition:opacity 0.5s ease,transform 0.5s ease;
+  pointer-events:none;
 }
 .extenderActive{
+  z-index:1;
+  pointer-events:auto;
   opacity:1;
   transform:translateX(0px);
   border-radius:15px;
@@ -245,6 +248,7 @@ i{
   justify-content: center;
   opacity:0;
   transition:opacity 0.5s ease;
+  z-index:10;
 }
 #notifyDiv.notifyActive{
   opacity:1;

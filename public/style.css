@@ -68,7 +68,7 @@ p{
   border:none;
   font-size:15px;
   margin-top:5px;
-  border-radius:15px;
+  border-radius:10px;
   transition-duration:0.5s;
   box-sizing: border-box;
   display: flex;
@@ -78,7 +78,7 @@ p{
 }
 .navbarButton:hover{
   transform:scale(1.08);
-  border-radius:15px;
+  border-radius:10px;
   background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
 
 }
@@ -98,7 +98,7 @@ p{
 }
 .navbarButtonActive{
   position:relative;
-  border-radius:15px;
+  border-radius:10px;
   background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
   min-width: 100px;
   min-height:30px;
@@ -175,6 +175,7 @@ p{
   transform:translateX(20px);
   transition:opacity 0.5s ease,transform 0.5s ease;
   pointer-events:none;
+  z-index:1;
 }
 .extenderActive{
   z-index:1;
@@ -240,7 +241,7 @@ i{
   bottom: 10%;
   transform: translateX(-50%);
   border-radius: 10px;
-  background-color: rgba(241, 238, 238,0.2);
+  background-color: black;
   padding-left:6px;
   padding-right:6px;
   color: white;

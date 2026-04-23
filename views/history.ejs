@@ -1,6 +1,6 @@
 <%-include("./partials/navbar")%>
-<link rel="stylesheet" href="cart.css">
-<% if(typeof cartList=='undefined'){%>
+<link rel="stylesheet" href="history.css">
+<% if(typeof historyNotify=='undefined'){%>
   <div class="videoDiv">
     <div class="videoBox">
       <video src="/videos/NoContent.mp4" height="300px;" autoplay muted loop></video>
@@ -11,4 +11,48 @@
     const video = document.querySelector("video");
     video.playbackRate = 0.8;
   </script>
+<%}else{%>
+  <div class="wholeCart">
+    <div class="cartListBody">
+        <%historyNotify.forEach(cart=>{%>
+          <div class="cartBoxContainer">
+            <div class="cartBox">
+              <div class="imageBox">
+                <img id="image" src="/uploads/<%=cart.itemId.photo%>">
+              </div>
+              <div class="container">
+                <p id="heading"><%=cart.itemId.itemName%></p>
+                <%=cart.itemId.description%>
+                <div class="DeliveryDiv">
+                  <p style="color:rgb(71, 149, 250);font-size:20px;">Delivery Details</p>
+                  <div class="itemDetails">
+                    <div>Item Name:<%=cart.itemId.itemName%></div>
+                    <div>Quantity: 1</div>
+                    <div>Price:  <span style="text-decoration:line-through;margin-right:10px;">₹ <%=cart.itemId.realPrice%>   </span>₹ <%=cart.itemId.discountPrice%></div>
+                    <div>Delivery Charge:  ₹  <%=(cart.itemId.realPrice)/100*4%></div>
+                    <div>Saved amount : <%=cart.itemId.realPrice-cart.itemId.discountPrice%> 🎉%></div>
+                    <div>Payable Price:  ₹ <%=((cart.itemId.discountPrice)/100*5)+cart.itemId.discountPrice%></div>
+                  </div>
+                  <div class="outerLoading">
+                    <div class="loading" data-order="<%=new Date(cart.date).toISOString()%>"></div>
+                    <div class="roadMap"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="editAndDelete">
+              <div>
+                <a href="/buyCode"><button type="submit" id="edit">Pay Online</button></a>
+              </div>
+            </div>
+          </div>
+        <%})%>
+    </div>
+    <div class="bottomBuy">
+      <div style="color:rgb(251, 76, 251)">Total Ordered: <%=payPrice%></div>
+      <div style="color:rgb(251,76,251)">Total Discount : <%=discountPrice%></div>
+      <button id="buy">Place Order</button>
+    </div>
+  </div>
+  <script src="/historyScript.js"></script>
 <%}%>

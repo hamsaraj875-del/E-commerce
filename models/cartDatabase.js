@@ -1,4 +1,3 @@
-DB = "mongodb+srv://Hamsaraj:Chshha091420@bnb.jzkkvzd.mongodb.net/E-commerce?appName=bnb";
 const mongoose = require("mongoose");
 const cartSchema = mongoose.Schema({
   itemId:{type:mongoose.Schema.Types.ObjectId,

@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const fs = require("fs");
 const database = require('../models/database');
 const cartDatabase = require("../models/cartDatabase");
+const historyDatabase = require("../models/historyDatabase");
 
 //Message handler function 
 
@@ -20,12 +21,13 @@ exports.homePage = async(req,res,next)=>{
   try{
     const itemList = await(database.find());
     const notify = await cartDatabase.find({userId:req.session.userId});
+    const historyNotify = await historyDatabase.find({userId:req.session.userId});
     let mes = createHomeMessage(req);
     if(req.session.isLoggedIn){
       const userName = req.session.userName;
-      return res.render("index",{message:mes,notify:notify.length,userType:req.session.userType,userName,itemList,page:"home"});
+      return res.render("index",{message:mes,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName,itemList,page:"home"});
     }
-    res.render("index",{message:mes,notify:notify.length,itemList,page:"home",userType:req.session.userType});
+    res.render("index",{message:mes,notify:notify,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
     console.log(err);
@@ -41,7 +43,13 @@ exports.loginPage = (req,res,next)=>{
 //Adding to the home page
 exports.add = (req,res,next)=>{
   cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-    return res.render("add",{notify:notify.length,page:"add",userType:req.session.userType});
+    historyDatabase.find({userId:req.session.userId}).then((historyNotify)=>{
+      return res.render("add",{historyNotify:historyNotify,notify:notify.length,page:"add",userType:req.session.userType});
+    })
+    .catch(err=>{
+      req.session.message = "Unabled to Load the page!";
+      return res.redirect("/home");
+    })
   })
   .catch(err=>{
     req.session.message = "Unabled to add";
@@ -81,10 +89,18 @@ exports.edit=(req,res,next)=>{
   console.log(itemId);
   database.findById(itemId).then((itemDetails)=>{
     cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-      return res.render("add",{notify:notify.length,oldInput:itemDetails,page:"add",userType:req.session.userType,userName:req.session.userName});
+      historyDatabase.find({userId:req.session.userId}).then((historyNotify)=>{
+        return res.render("add",{historyNotify:historyNotify,notify:notify,oldInput:itemDetails,page:"add",userType:req.session.userType,userName:req.session.userName});
+      })
+      .catch(err=>{
+        console.log(err);
+        req.session.message="Unabled to load the page";
+        return res.redirect("/home");
+      })
     })
     .catch(err=>{
       console.log(err);
+      req.session.message = "Unabled to edit"
       return res.redirect("/home");
     })
   })
@@ -153,7 +169,6 @@ function cartSum(cartList){
     payPrice += cartList[i].itemId.realPrice;
     discountPrice += cartList[i].itemId.discountPrice;
   }
-  console.log(payPrice,discountPrice);
   return {payPrice,discountPrice};
 }
 
@@ -169,12 +184,18 @@ exports.displayCart = async(req,res,next)=>{
   try{
     const cartList = await cartDatabase.find({userId:new mongoose.Types.ObjectId(req.session.userId)}).populate("itemId");
     const sum = cartSum(cartList);
-    console.log(sum);
-    cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-      let message = createCartMessage(req);
-      return res.render("cart",{message:message,sum:sum,notify:notify.length,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
+    cartDatabase.find({userId:req.session.userId}).sort().then((notify)=>{
+      historyDatabase.find({userId:req.session.userId}).then((historyNotify)=>{
+        let message = createCartMessage(req);
+        return res.render("cart",{historyNotify:historyNotify,message:message,sum:sum,notify:notify,page:"cart",cartList:cartList,userType:req.session.userType,userName:req.session.userName});
+      })
+      .catch(err=>{
+        req.session.message = "Unabled to Load the page";
+        return res.redirect("/home");
+      })
     })
     .catch(err=>{
+      req.session.message = "Unabled to Load the cart";
       return res.redirect("/home");
     });
   }
@@ -201,20 +222,46 @@ exports.itemDetails = async(req,res,next)=>{
 }
 
 
+
+// Buy Check
+exports.buyCheck = async(req,res,next)=>{
+  const itemId = req.params.id;
+  try{
+    const itemData = await database.findById(itemId);
+    if(!itemData){
+      req.session.message = "item not found";
+      return res.redirect("/home");
+    }
+    const userId = req.session.userId;
+    const date = new Date().toISOString().split("T")[0];
+    const details = new historyDatabase({itemId,userId,date});
+    await details.save();
+    return res.redirect("/history");
+  }catch(err){
+    console.log(err);
+    req.session.message = "Error occured while ordering !"
+    return res.redirect("/home")
+  }
+}
+
 //Display History 
 exports.displayHistory = (req,res,next)=>{
-  cartDatabase.find({userId:req.session.userId}).then((notify)=>{
-    return res.render("history",{notify:notify.length,page:"history",userName:req.session.userName,userType:req.session.userType});
-  })
-  .catch(err=>{
+  cartDatabase.find({userId:new mongoose.Types.ObjectId(req.session.userId)}).populate("itemId").then((notify)=>{
+    historyDatabase.find({userId:new mongoose.Types.ObjectId(req.session.userId)}).populate("itemId").sort({date:-1}).then((historyNotify)=>{
+      let {payPrice,discountPrice} = cartSum(historyNotify);
+      return res.render("history",{payPrice:payPrice,discountPrice:discountPrice,historyNotify:historyNotify,notify:notify,page:"history",userName:req.session.userName,userType:req.session.userType});
+    }).catch(err=>{
+      console.log(err);
+      req.session.message = "Error in Displaying history;"
+      return res.redirect("/home");
+    })
+  }).catch(err=>{
+    console.log(err);
+    req.session.message= "Error occured while Displaying the cart";
     return res.redirect("/home");
   })
 }
 
-//Display Buying details
-exports.buyDetails = (req,res,next)=>{
-  const itemId = req.params.id;
-}
 
 //logout handling 
 exports.logout = (req,res,next)=>{

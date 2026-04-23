@@ -85,7 +85,7 @@ async function cartUser(req,res,next){
     return next();
   }
   req.session.message = "Login to use cart";
-  res.redirect("/home");
+  res.redirect("/login");
 }
 
 //session default Declaration
@@ -108,8 +108,8 @@ app.get("/cart",cartUser,checkUser,controller.displayCart);
 app.get("/details/:id",controller.itemDetails);
 app.post("/addToCart/:id",controller.checkCart);
 app.post("/deleteCart/:id",controller.deleteCart);
+app.post("/buyConfirm/:id",controller.buyCheck);
 app.get("/history",cartUser,checkUser,controller.displayHistory);
-app.get("/buy:itemId",checkUser,controller.buyDetails);
 app.get("/logout",controller.logout);
 app.get("/",controller.pageNotFound);
 

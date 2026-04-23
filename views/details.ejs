@@ -5,6 +5,7 @@
     <img src="/uploads/<%=itemData.photo%>">
   </div>
   <div class="content">
+    <div id="name"><%=itemData.itemName%></div>
     <div id="description"><%=itemData.description%></div>
     <div id=date></div>
     <div class="delivery">
@@ -20,9 +21,12 @@
   <div id="totalPrice">Total Bill without discount: ₹ <%=itemData.realPrice%></div>
   <div id="totalDiscountPrice">Payable Bill: ₹ <%=itemData.discountPrice%></div>
   <div id="save">You can save upto: ₹ <%=itemData.realPrice-itemData.discountPrice%> 🎉</div>
-  <button id="buy" onclick="cart(itemData._id)">Place Order</button>
+  <form action="/buyConfirm/<%=itemData._id%>" method="POST">
+    <button type="submit" id="buy" class="confettiBtn" >Place Order</button>
+  </form>
   <form action="/addToCart/<%=itemData._id%>" method="POST">
     <button id="buy">Add to Cart</button>
   </form>
 </div>
 <script src="/detailScript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

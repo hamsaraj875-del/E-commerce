@@ -24,3 +24,14 @@ setInterval(()=>{
 const cart =(items)=>{
   window.location.href=`/addToCart/${items}`;
 }
+
+
+const btn = document.querySelector(".confettiBtn");
+
+btn.addEventListener("click", () => {
+  confetti({
+    particleCount: 120,
+    spread:70,
+    origin: { y: 0.8 }
+  });
+});

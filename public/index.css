@@ -67,6 +67,7 @@
   position:relative;
 }
 #edit,#delete{
+  font-size:15px;
   margin:8px;
   min-width:80px;
   height:30px;
@@ -74,18 +75,13 @@
   background-color:transparent;
   border:1px solid black;
 }
-#edit:hover{
-  border-radius:15px;
-  background-color:rgb(49, 251, 157);
-  color:black;
+#edit:hover,#delete:hover{
+  border-radius:10px;
+  background-color:rgb(202, 237, 221);
+  color:rgb(49, 251, 157);
 }
 img{
   border-radius:15px;
-}
-#delete:hover{
-  border-radius:15px;
-  background-color:orangered;
-  color:black;
 }
 #description{
   margin-top:10px;

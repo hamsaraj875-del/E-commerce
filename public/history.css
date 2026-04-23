@@ -5,6 +5,9 @@
   justify-content:center;
   align-items:center;
 }
+.cartBoxContainer{
+  min-height:280px;
+}
 .paragraph {
   margin-left:30px;
   font-size:40px;
@@ -19,7 +22,7 @@
 }
 .cartBoxCollection{
   width:100%;
-  height:500px;
+  min-height:400px;
 }
 .cartBox{
   display:flex;
@@ -29,41 +32,37 @@
   padding:30px;
 }
 .cartBoxContainer{
+  padding-bottom:10px;
   margin:20px;
   position:relative;
   border-radius:8px;
+  min-height:200px;
 }
 .editAndDelete{
   display:flex;
   flex-direction:row;
-  align-items:center;
-  height:30px;
-  padding:3px;
-  justify-content:space-evenly;
-  bottom:30px;
-  position:absolute;
+  justify-content:center;
+  gap:20px;
+  margin-bottom:20px;
 }
-#edit,#delete{
-  margin:8px;
-  min-width:100px;
-  height:30px;
-  font-size:15px;
-  color:white;
+#edit{
+  min-height:30px;
+  min-width:120px;
   background-color:transparent;
-  font-weight:bold;
   border:1px solid black;
+  font-weight:bolder;
+  font-size:16px;
+  color:white;
 }
 #edit:hover{
-  border-radius:8px;
-  background-color:rgb(205, 223, 215);
-  color:rgb(2, 250, 134);
-;
+  border-radius:7px;
+  background-color:rgb(197, 231, 215);
+  color:rgb(10, 254, 10);
 }
 #delete:hover{
-  border-radius:8px;
-  background-color:rgb(252, 201, 183);
-  color:orangered;
-;
+  border-radius:15px;
+  background-color:orangered;
+  color:black;
 }
 .cartBoxContainer:hover{
   box-shadow:0px 4px 8px black;
@@ -107,5 +106,39 @@
   transition:all 0.4s ease-out;
 }
 #buy:hover{
+  background-color:rgb(249, 178, 249);
+  color:rgb(227, 34, 248);
   transform:scale(1.08);
+}
+
+.DeliveryDiv{
+  margin-top:20px;
+  font-size:22px;
+  margin-left:20px;
+}
+.outerLoading{
+  width:70%;
+  margin:20px;
+  height:6px;
+  border-radius:10px;
+  background-color:#eee;
+}
+.loading{
+  width:100%;
+  height:100%;
+  background-color:green;
+  border-radius:10px;
+}
+
+.itemDetails{
+  font-size:15px;
+  margin-left:30px;
+}
+
+.roadMap{
+  font-size:16px;
+  margin-top:10px;
+  width:100%;
+  word-wrap:break-word;
+  word-spacing:3px;
 }

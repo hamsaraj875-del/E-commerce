@@ -13,9 +13,18 @@ exports.signUp = (req,res,next)=>{
   res.render("sign");
 }
 
+
+//login message creator.
+const messageCreator = (req)=>{
+  const message = req.session.message;
+  req.session.message = null;
+  return message;
+}
+
 //display login page
 exports.login = (req,res,next)=>{
-  res.render("login");
+  const message = messageCreator(req);
+  res.render("login",{message:message});
 }
 
 //Confirming login
@@ -35,25 +44,30 @@ exports.loginCheck=(req,res,next)=>{
               return res.redirect("/home");
             })
             .catch(err=>{
-              return res.render("index",{notify:0,page:"home",itemList:list,userName:req.session.userName,userType:req.session.userType})
+              req.session.message = "❌ Failed to load data. Kindly try again later."
+              return res.redirect("/home");
             })
           })
           .catch(err=>{
             console.log(err);
-            return res.render('login',{error:"invalid username or password"});
+            req.session.message = "❌ Failed to load data. Kindly try again later."
+            return res.redirect("/home");
           });
         }else{
-          return res.render('login',{error:"invalid username or password"});
+          req.session.message = "🔑 Invalid username or password";
+          return res.redirect("/login");
         }
       })
     }
     else{
-      return res.render('login',{error:"invalid username or password"});
+      req.session.message = "🔑 Invalid username or password";
+      return res.redirect("/login");
     }
   })
   .catch(err=>{
     console.log(err);
-    return res.render('login',{error:"invalid username or password"});
+    req.session.message = "🔑 Invalid username or password";
+    return res.redirect("/login");
   })
 }
 

@@ -135,3 +135,25 @@ body{
   top:50%;
   transform:translate(-50%,-50%);
 }
+#notifyDiv {
+  display: flex;
+  min-width: 200px;
+  min-height: 40px;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background-color: black;
+  padding-left:6px;
+  padding-right:6px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  opacity:0;
+  transition:opacity 0.5s ease;
+  z-index:10;
+}
+#notifyDiv.notifyActive{
+  opacity:1;
+}

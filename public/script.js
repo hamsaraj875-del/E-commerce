@@ -43,9 +43,7 @@ body.addEventListener("click", () => {
 //Notification Function
 
 function notification(){
-  console.log("almost done");
   const notifyDiv = document.querySelector("#notifyDiv"); 
-  console.log(notifyDiv);
   notifyDiv.classList.add("notifyActive");
   setTimeout(()=>{
     notifyDiv.classList.remove("notifyActive");

@@ -15,3 +15,12 @@ function hostShift(){
     console.log(hiddenInput.value)
   }
 }
+
+
+function notification(){
+  const notifyDiv = document.querySelector("#notifyDiv"); 
+  notifyDiv.classList.add("notifyActive");
+  setTimeout(()=>{
+    notifyDiv.classList.remove("notifyActive");
+  },3000);
+}

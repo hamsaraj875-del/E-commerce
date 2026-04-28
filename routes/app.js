@@ -110,6 +110,7 @@ app.post("/addToCart/:id",controller.checkCart);
 app.post("/deleteCart/:id",controller.deleteCart);
 app.post("/buyConfirm/:id",controller.buyCheck);
 app.get("/history",cartUser,checkUser,controller.displayHistory);
+app.get("/buyCode/:id",controller.displayCode);
 app.get("/logout",controller.logout);
 app.get("/",controller.pageNotFound);
 

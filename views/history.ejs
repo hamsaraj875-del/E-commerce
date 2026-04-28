@@ -1,6 +1,6 @@
 <%-include("./partials/navbar")%>
 <link rel="stylesheet" href="history.css">
-<% if(typeof historyNotify=='undefined'){%>
+<% if(typeof historyNotify=='undefined' || historyNotify.length==0){%>
   <div class="videoDiv">
     <div class="videoBox">
       <video src="/videos/NoContent.mp4" height="300px;" autoplay muted loop></video>
@@ -31,18 +31,23 @@
                     <div>Price:  <span style="text-decoration:line-through;margin-right:10px;">₹ <%=cart.itemId.realPrice%>   </span>₹ <%=cart.itemId.discountPrice%></div>
                     <div>Delivery Charge:  ₹  <%=(cart.itemId.realPrice)/100*4%></div>
                     <div>Saved amount : <%=cart.itemId.realPrice-cart.itemId.discountPrice%> 🎉%></div>
-                    <div>Payable Price:  ₹ <%=((cart.itemId.discountPrice)/100*5)+cart.itemId.discountPrice%></div>
+                    <div>Payable Price:  ₹ <%=((cart.itemId.discountPrice)/100*5)+cart.itemId.discountPrice%></div>                  
                   </div>
                   <div class="outerLoading">
-                    <div class="loading" data-order="<%=new Date(cart.date).toISOString()%>"></div>
+                    <div class="loading" data-order="<%=new Date(cart.date).toISOString()%>" data-payment="<%=cart.payment%>"></div>
                     <div class="roadMap"></div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="status">
+              <div class="deliveryStatus"></div>
+              <div class="deliveryStatusDate"></div>
+              <div class="paymentStatus">Payment Status : <%-cart.payment?'<span style="color:rgb(103, 255, 164);">Payment Done</span>':'<span style="color:yellow">Payment Pending ⏳</span>'%></div>
+            </div>
             <div class="editAndDelete">
               <div>
-                <a href="/buyCode"><button type="submit" id="edit">Pay Online</button></a>
+                <a href="/buyCode/<%=cart._id%>"><button type="submit" class="Btn" id="edit">Pay Online</button></a>
               </div>
             </div>
           </div>
@@ -55,4 +60,5 @@
     </div>
   </div>
   <script src="/historyScript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <%}%>

@@ -26,12 +26,12 @@
           <a href="/add" class="<%=page=='add'?'navbarButtonActive':'navbarButton'%>">Add</a>
         <%}%>
         <%if(userType == "User" || userType == "Guest"){%>
-          <a href="/cart" class="<%=page=='cart'?'navbarButtonActive':'navbarButton'%>">cart
+          <a href="/cart" class="<%=page=='cart'?'navbarButtonActive':'navbarButton'%>">Cart
             <%if(typeof notify != 'undefined'  && notify.length>0){%>
               <span id="notification"><%=notify.length%></span>
             <%}%>
           </a>
-          <a href="/history" class="<%=page=='history'?'navbarButtonActive':'navbarButton'%>">history
+          <a href="/history" class="<%=page=='history'?'navbarButtonActive':'navbarButton'%>">Orders
             <%if(typeof historyNotify!='undefined' && historyNotify.length>0){%>
               <span id="notification"><%=historyNotify.length%></span>
             <%}%>

@@ -12,6 +12,11 @@ const historySchema = mongoose.Schema({
   date:{
     type:String,
     required:true,
+  },
+  payment:{
+    type:Boolean,
+    required:true,
+    default:false,
   }
 })
 

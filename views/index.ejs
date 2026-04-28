@@ -30,9 +30,9 @@
           </div>
           <div id="description"><%=items.description%></div>
           <div class="editAndDelete">
-            <div>
-              <a href="<%=userType=='Host'?'/edit/':'/buy/'%><%=items._id%>"><button type="submit" id="edit"><%=userType=="Host"?"Edit":"Buy"%></button></a>
-            </div>
+            <form action="<%=userType=='Host'?'/edit/':'/buyConfirm/'%><%=items._id%>" method="POST">
+              <button type="submit" id="edit" class="Btn"><%=userType=="Host"?"Edit":"Buy"%></button>
+            </form>
             <form method="POST" action="<%=userType=='Host'?'/delete/':'/addToCart/'%><%=items._id%>">
               <button type="submit" id="delete"><%=userType=="Host"?"Delete":"Add To Cart"%></button>
             </form>
@@ -43,3 +43,4 @@
   <%}%>
 </div>
 <script src="/indexScript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

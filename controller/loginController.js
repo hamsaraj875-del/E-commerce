@@ -41,33 +41,47 @@ exports.loginCheck=(req,res,next)=>{
           database.find().then(list=>{
             cartDatabase.find({userId:req.session.userId}).then((notify)=>{             
               req.session.message = "👋 Welcome back! 🎉 Login successful ✔️";
-              return res.redirect("/home");
+              req.session.save((err)=>{
+                return res.redirect("/home")
+              });
             })
             .catch(err=>{
               req.session.message = "❌ Failed to load data. Kindly try again later."
-              return res.redirect("/home");
+              req.session.save((err)=>{
+                return res.redirect("/home")
+              });
             })
           })
           .catch(err=>{
             console.log(err);
             req.session.message = "❌ Failed to load data. Kindly try again later."
-            return res.redirect("/home");
+            req.session.save((err)=>{
+              return res.redirect("/home")
+            });
           });
         }else{
+          console.log("no matches found");
           req.session.message = "🔑 Invalid username or password";
-          return res.redirect("/login");
+          req.session.save((err)=>{
+            return res.redirect("/home")
+          });
         }
       })
     }
     else{
+      console.log("invalid type");
       req.session.message = "🔑 Invalid username or password";
-      return res.redirect("/login");
+      req.session.save((err)=>{
+        return res.redirect("/login")
+      });
     }
   })
   .catch(err=>{
     console.log(err);
     req.session.message = "🔑 Invalid username or password";
-    return res.redirect("/login");
+    req.session.save((err)=>{
+      return res.redirect("/login")
+    });
   })
 }
 
@@ -136,18 +150,26 @@ exports.confirmSignUp = [
           req.session.isLoggedIn = true;
           req.session.userName = details.firstName;
           req.session.userType = details.userType;
-          req.session.userId = details._id.toString();
-          return res.redirect("/home");
+          req.session.userId = details._id.toString();            
+          req.session.message = "👋 Welcome 🎉 Login successful ✔️";
+          req.session.save((err)=>{
+            return res.redirect("/login")
+          });
         })
         .catch(err=>{
-          console.log("error hit");
+          req.session.message = "❌ Failed to load data. Kindly try again later.";
           console.log(err);
-          return res.redirect("/signUp");
+          req.session.save((err)=>{
+            return res.redirect("/signUp")
+          });
         })
       })
       .catch(err=>{
-        console.log("error hit");
-        return res.redirect("/login");
+        console.log(err);
+        req.session.message = "❌ Failed to save data. Kindly try again later.";
+        req.session.save((err)=>{
+          return res.redirect("/login")
+        });
       })
     }
     else{

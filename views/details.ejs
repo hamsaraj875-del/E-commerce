@@ -22,7 +22,7 @@
   <div id="totalDiscountPrice">Payable Bill: ₹ <%=itemData.discountPrice%></div>
   <div id="save">You can save upto: ₹ <%=itemData.realPrice-itemData.discountPrice%> 🎉</div>
   <form action="/buyConfirm/<%=itemData._id%>" method="POST">
-    <button type="submit" id="buy" class="confettiBtn" >Place Order</button>
+    <button type="submit" id="buy" class="Btn" >Place Order</button>
   </form>
   <form action="/addToCart/<%=itemData._id%>" method="POST">
     <button id="buy">Add to Cart</button>

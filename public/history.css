@@ -16,6 +16,8 @@
   color: transparent;
 }
 .cartListBody{
+  display:flex;
+  flex-direction:column-reverse;
   position:relative;
   color:white;
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -59,11 +61,6 @@
   background-color:rgb(197, 231, 215);
   color:rgb(10, 254, 10);
 }
-#delete:hover{
-  border-radius:15px;
-  background-color:orangered;
-  color:black;
-}
 .cartBoxContainer:hover{
   box-shadow:0px 4px 8px black;
   transform:translateY(-4px);
@@ -77,7 +74,8 @@
 }
 .imageBox{
   margin:30px;
-  width:400px;
+  max-width:400px;
+  max-height:400px;
 }
 #image{
   width:300px;
@@ -138,7 +136,22 @@
 .roadMap{
   font-size:16px;
   margin-top:10px;
-  width:100%;
+  width:900px;
   word-wrap:break-word;
   word-spacing:3px;
+}
+
+.status{
+  margin:20px;
+  gap:5px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:rgb(103, 255, 164);
+}
+.payment{
+  font-size:15px;
+  margin:15px;
+  color:yellow;
 }

@@ -26,7 +26,7 @@ const cart =(items)=>{
 }
 
 
-const btn = document.querySelector(".confettiBtn");
+const btn = document.querySelector(".Btn");
 
 btn.addEventListener("click", () => {
   confetti({

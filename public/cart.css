@@ -107,5 +107,7 @@
   transition:all 0.4s ease-out;
 }
 #buy:hover{
+  background-color:rgb(249, 178, 249);
+  color:rgb(227, 34, 248);
   transform:scale(1.08);
 }

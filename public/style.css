@@ -61,14 +61,14 @@ p{
   position:relative;
   text-align:center;
   padding:2px;
-  min-width: 100px;
+  min-width: 80px;
   height:30px;
   background-color:black;
   color:white;
   border:none;
   font-size:15px;
   margin-top:5px;
-  border-radius:10px;
+  border-radius:8px;
   transition-duration:0.5s;
   box-sizing: border-box;
   display: flex;
@@ -78,7 +78,7 @@ p{
 }
 .navbarButton:hover{
   transform:scale(1.08);
-  border-radius:10px;
+  border-radius:8px;
   background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
 
 }
@@ -100,7 +100,7 @@ p{
   position:relative;
   border-radius:10px;
   background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
-  min-width: 100px;
+  min-width: 80px;
   min-height:30px;
   color:white;
   border:none;
@@ -234,11 +234,11 @@ i{
 }
 #notifyDiv {
   display: flex;
+  position:fixed;
   min-width: 200px;
   min-height: 40px;
-  position: absolute;
   left: 50%;
-  bottom: 10%;
+  bottom: 20%;
   transform: translateX(-50%);
   border-radius: 10px;
   background-color: black;
@@ -250,7 +250,8 @@ i{
   opacity:0;
   transition:opacity 0.5s ease;
   z-index:10;
+  pointer-events:none;
 }
-#notifyDiv.notifyActive{
+.notifyActive{
   opacity:1;
 }

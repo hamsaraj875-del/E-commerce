@@ -4,12 +4,15 @@ const itemClick = (items)=>{
 
 
 
-const btn = document.querySelector(".Btn");
+const btn = document.querySelectorAll(".Btn");
 
-btn.addEventListener("click", () => {
-  confetti({
+btn.forEach(button=>{
+  button.addEventListener("click",(e)=>{
+    confetti({
     particleCount: 120,
     spread:70,
     origin: { y: 0.8 }
   });
-});
+  })
+})
+

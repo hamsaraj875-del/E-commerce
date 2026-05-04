@@ -98,7 +98,7 @@ p{
 }
 .navbarButtonActive{
   position:relative;
-  border-radius:10px;
+  border-radius:8px;
   background:linear-gradient(135deg, #6a11cb 50%, #2575fc);
   min-width: 80px;
   min-height:30px;

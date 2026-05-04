@@ -39,10 +39,11 @@ exports.loginCheck=(req,res,next)=>{
           req.session.userType=details.userType;
           req.session.userId=details._id.toString();
           database.find().then(list=>{
-            cartDatabase.find({userId:req.session.userId}).then((notify)=>{             
+            cartDatabase.find({userId:req.session.userId}).then((notify)=>{     
+              console.log("hi");        
               req.session.message = "👋 Welcome back! 🎉 Login successful ✔️";
               req.session.save((err)=>{
-                return res.redirect("/home")
+                return res.redirect("/home");
               });
             })
             .catch(err=>{
@@ -153,7 +154,7 @@ exports.confirmSignUp = [
           req.session.userId = details._id.toString();            
           req.session.message = "👋 Welcome 🎉 Login successful ✔️";
           req.session.save((err)=>{
-            return res.redirect("/login")
+            return res.redirect("/home")
           });
         })
         .catch(err=>{

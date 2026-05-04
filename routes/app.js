@@ -36,9 +36,14 @@ const store = new mongoDBStore({
 //Handling sessions
 app.use(session({
   secret:process.env.SECRETKEY,
-  saveUninitialized:true,
+  saveUninitialized:false,
   store:store,
-  resave:false
+  resave:false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 5,
+    secure: process.env.NODE_ENV === "production"
+  }
 }))
 
 //File Input and Output handling

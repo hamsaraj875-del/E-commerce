@@ -38,20 +38,11 @@ exports.loginCheck=(req,res,next)=>{
           req.session.userName=details.firstName;
           req.session.userType=details.userType;
           req.session.userId=details._id.toString();
-          database.find().then(list=>{
-            cartDatabase.find({userId:req.session.userId}).then((notify)=>{     
-              console.log("hi");        
-              req.session.message = "👋 Welcome back! 🎉 Login successful ✔️";
-              req.session.save((err)=>{
-                return res.redirect("/home");
-              });
-            })
-            .catch(err=>{
-              req.session.message = "❌ Failed to load data. Kindly try again later."
-              req.session.save((err)=>{
-                return res.redirect("/home")
-              });
-            })
+          database.find().then(list=>{     
+            req.session.message = "👋 Welcome back! 🎉 Login successful ✔️";
+            req.session.save((err)=>{
+              return res.redirect("/home");
+            });
           })
           .catch(err=>{
             console.log(err);

@@ -57,10 +57,16 @@
     </div>
   </div>
     <%if(typeof message!='undefined' && message){%>
-      <div id="notifyDiv">
+      <div class="notifyDiv">
         <p id="notify"><%=message%></p>
       </div>
     <%}%>
   <script src="/script.js"></script>
+  <script src="/notification.js"></script>
+  <script>
+    window.onload = function(){
+      notification();
+    }
+  </script>
 </body>
 </html>

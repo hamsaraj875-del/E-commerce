@@ -24,7 +24,6 @@ exports.homePage = async(req,res,next)=>{
     const notify = await cartDatabase.find({userId:req.session.userId});
     const historyNotify = await historyDatabase.find({userId:req.session.userId});
     let mes = await createMessage(req);
-    console.log(mes);
     if(req.session.isLoggedIn){
       const userName = req.session.userName;
       return res.render("index",{message:mes,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName,itemList,page:"home"});
@@ -121,7 +120,8 @@ exports.delete = async (req, res, next) => {
     await req.session.save();
     return res.redirect("/home");
 
-  } catch (err) {
+  } 
+  catch (err) {
     console.log(err);
     req.session.message = "⚠️ Couldn't Delete — Try Again";
     await req.session.save();

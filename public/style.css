@@ -232,7 +232,27 @@ hr{
 i{
   font-size:50px;
 }
-#notifyDiv {
+.notifyActive{
+  display: flex;
+  position:fixed;
+  min-width: 200px;
+  min-height: 40px;
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background-color: black;
+  padding-left:6px;
+  padding-right:6px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  opacity:1;
+  transition:opacity 0.5s ease;
+  z-index:10;
+  pointer-events:none;
+}
+.notifyDiv {
   display: flex;
   position:fixed;
   min-width: 200px;
@@ -251,7 +271,4 @@ i{
   transition:opacity 0.5s ease;
   z-index:10;
   pointer-events:none;
-}
-.notifyActive{
-  opacity:1;
 }

@@ -24,3 +24,17 @@ function notification(){
     notifyDiv.classList.remove("notifyActive");
   },3000);
 }
+
+function eyeClick(){
+  let input = document.querySelector("#passwordAnimation");
+  let icon = document.querySelector("#icon");
+  if(input.type == "password"){
+    input.type = "text";
+    icon.classList.remove("fa-regular","fa-eye");
+    icon.classList.add("fa-solid","fa-eye-low-vision");
+  }else{
+    input.type = "password";
+    icon.classList.remove("fa-solid","fa-eye-low-vision");
+    icon.classList.add("fa-regular","fa-eye");
+  }
+}

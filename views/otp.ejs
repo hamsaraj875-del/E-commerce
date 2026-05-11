@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+  <div class="body">
+    <form action="/otpChecker" method="POST">
+      <div class="otp-container">
+        <div>
+          <p style="margin:10px;font-size:30px;">OTP</p>
+          <p style="margin:10px;font-size:15px;">Email sended  (check span folder)</p>
+        </div>
+        <div>
+          <input maxlength="1" name="first" class="otp" />
+          <input maxlength="1" name="second" class="otp" />
+          <input maxlength="1" name="third" class="otp" />
+          <input maxlength="1" name="fourth" class="otp" />
+          <input maxlength="1" name="fifth" class="otp" />
+          <input maxlength="1" name="sixth" class="otp" />
+        </div>
+        <div>
+          <button id="otpBtn" type="submit">Submit</button>
+          <p style="margin:10px;font-size:15px;">⏳ OTP expires in 2 minutes.</p>
+        </div>
+      </div>
+    </form>
+    <%if(typeof message!='undefined' && message){%>
+      <div id="notifyDiv">
+        <p id="notify"><%=message%></p>
+      </div>
+    <%}%>
+  </div>
+  <script src="/otp.js"></script>
+  <script>
+    window.onload = function(){
+      notification();
+    }
+  </script>
+</body>
+</html>

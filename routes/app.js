@@ -30,7 +30,8 @@ app.use(express.urlencoded({extended:true}));
 
 const store = new mongoDBStore({
   uri:process.env.DB,
-  collection:'session'
+  collection:'session',
+  expires:60*60*24*5
 })
 
 //Handling sessions
@@ -39,9 +40,10 @@ app.use(session({
   saveUninitialized:false,
   store:store,
   resave:false,
+  rolling:true,
   cookie: {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 5,
+    maxAge: 1000 * 60*60*5,
     secure: process.env.NODE_ENV === "production"
   }
 }))
@@ -95,8 +97,10 @@ async function cartUser(req,res,next){
 
 //session default Declaration
 function sessionDefault(req,res,next){
-  if(typeof req.session.userType == 'undefined'){
+  if(!req.session.userType){
     req.session.userType = "Guest";
+    req.session.isLoggedIn = false;
+    req.session.userName = "No Account Found !";
   }
   next();
 }
@@ -111,12 +115,12 @@ app.get("/edit/:id",checkHost,controller.edit);
 app.post("/delete/:id",checkHost,controller.delete);
 app.get("/cart",cartUser,checkUser,controller.displayCart);
 app.get("/details/:id",controller.itemDetails);
-app.post("/addToCart/:id",controller.checkCart);
-app.post("/deleteCart/:id",controller.deleteCart);
-app.post("/buyConfirm/:id",controller.buyCheck);
+app.post("/addToCart/:id",checkUser,cartUser,controller.checkCart);
+app.post("/deleteCart/:id",checkUser,cartUser,controller.deleteCart);
+app.post("/buyConfirm/:id",checkUser,cartUser,controller.buyCheck);
 app.get("/history",cartUser,checkUser,controller.displayHistory);
-app.get("/buyCode/:id",controller.displayCode);
-app.get("/logout",controller.logout);
+app.get("/buyCode/:id",checkUser,cartUser,controller.displayCode);
+app.get("/logout",checkUser,cartUser,controller.logout);
 app.get("/",controller.pageNotFound);
 
 //Request listener

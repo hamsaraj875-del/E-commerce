@@ -44,7 +44,7 @@
       </div>
       <div class="extender">
         <div class="extenderCollection">
-          <a href="account"><i class="fa-solid fa-user-circle"></i></a><span style="color:white;font-family: 'Rubik', sans-serif ;">Profile</span> <hr>
+          <a href="account"><i class="fa-solid fa-user-circle"></i></a><span style="color:white;font-family: 'Rubik', sans-serif ;margin-top:20px;">Profile</span> <hr>
           <p class="showName"><%=typeof userName!='undefined'?userName:'No Account found'%></p><hr>
           <p class="showName">Type:<%=userType%></p><hr>
           <a href="/home"><button class="logout">Home</button></a><hr>
@@ -52,6 +52,10 @@
           <a href="/history"><button class="logout">History</button></a><hr>
           <a href="deleteHistory"><button class="logout">Delete History</button></a><hr>
           <a href="logout"><button class="logout"><%=typeof userName!='undefined'?'Logout':'Login'%></button></a><hr>
+          <%if(typeof userName=='undefined'){%>
+            <a href="signUp"><button class="logout">Sign Up</button></a>
+            <hr>
+          <%}%>
         </div>
       </div>
     </div>

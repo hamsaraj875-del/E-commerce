@@ -8,7 +8,7 @@ body{
 }
 #loginBlock{
   background-color:rgba(232, 228, 228,0.1);
-  padding:50px;
+  padding:10px 60px 10px 60px;
   border-radius:15px;
 }
 .Buttons{
@@ -56,14 +56,22 @@ body{
   gap:8px;
   flex-direction:column;
   justify-content:center;
-  align-items:center;
+  align-items:flex-start;
 }
 #loginBlock:hover{
   box-shadow:0px 3px 5px black;
-  padding:50px;
+  padding:10px 60px 10px 60px;
 }
 .errorBlock{
   color:rgb(254, 135, 135);
+}
+#passwordAnimation{
+  background-color:transparent;
+  height:100%;
+  border:none;
+  outline:none;
+  color:white;
+  width:85%;
 }
 .greeting{
   background:linear-gradient(to right, #7bd7ff, #4b4eff);
@@ -153,7 +161,51 @@ body{
   opacity:0;
   transition:opacity 0.5s ease;
   z-index:10;
+  pointer-events:none;
 }
 #notifyDiv.notifyActive{
+  cursor:pointer;
   opacity:1;
+}
+label{
+  color:white;
+  margin-top:8px;
+}
+.otp-container{
+  display:flex;
+  flex-direction:column;
+  background-color:rgba(243, 240, 240,0.1);
+  border-radius:20px;
+  padding:70px;
+  display: flex;
+  gap: 10px;
+}
+
+.otp{
+  width: 35px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+.body{
+  margin:10px;
+  color:white;
+}
+
+.otp:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px #4f46e5;
+}
+#otpBtn {
+  background-color:orangered;
+  min-width:70px;
+  min-height:30px;
+  margin:10px;
+  border-radius:8px;
+}
+#otpBtn:hover {
+  background-color:rgb(255, 118, 69);
 }

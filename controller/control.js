@@ -25,8 +25,7 @@ exports.homePage = async(req,res,next)=>{
     const historyNotify = await historyDatabase.find({userId:req.session.userId});
     let mes = await createMessage(req);
     if(req.session.isLoggedIn){
-      const userName = req.session.userName;
-      return res.render("index",{message:mes,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName,itemList,page:"home"});
+      return res.render("index",{message:mes,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName:req.session.userName,itemList,page:"home"});
     }
     res.render("index",{message:mes,notify:notify,itemList,page:"home",userType:req.session.userType});
   }
@@ -47,7 +46,7 @@ exports.add = async (req,res,next)=>{
   try{
     const notify = await  cartDatabase.find({userId:req.session.userId});
     const historyNotify = await historyDatabase.find({userId:req.session.userId});
-    return res.render("add",{historyNotify:historyNotify,notify:notify.length,page:"add",userType:req.session.userType});
+    return res.render("add",{historyNotify:historyNotify,notify:notify.length,page:"add",userName:req.session.userName,userType:req.session.userType});
   }
   catch(err){
     req.session.message = "Unabled to Load the page!";
@@ -142,11 +141,11 @@ exports.checkCart=async (req,res,next)=>{
     const found = await cartDatabase.findOne({itemId:itemId,userId:userId})
     if(!found){
       await cartDetails.save()
-      req.session.message="🛍️ Nice choice! Item added";
+      req.session.message="🛍️ Nice choice! Item added to Cart";
       await req.session.save()
       return res.redirect("/home")
     }else{
-      req.session.message="🛍️ Nice choice! Item already there"
+      req.session.message="🛍️ Nice choice! Item already there in Cart"
       await req.session.save();
       return res.redirect("/home");
     }
@@ -293,7 +292,11 @@ exports.displayCode = async (req,res,next)=>{
 //logout handling 
 exports.logout = async (req,res,next)=>{
   try{
-    req.session.message = "Logged Out Successfully !";
+    if(req.session.isLoggedIn){
+      req.session.message = "Logged Out Successfully !";
+    }else{
+      req.session.message = "🔒 Sign In to your existing account or ✉️ Register a new account.";
+    }
     req.session.userName = null;
     req.session.userType = null;
     req.session.isLoggedIn = false;

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <div id="wholeLogin">
@@ -18,6 +19,8 @@
             <%})%>
           </ul>
         <%}%>
+        
+        <label for="userType" label>User Type :</label>
         <div class="toggleAndDisplay">
           <button type="button" class="toggle" onclick="hostShift()">
             <div class="insideToggle">
@@ -26,17 +29,36 @@
           <div class="displayToggle">User</div>
         </div> 
         <input type="hidden" class="hiddenInput" name="userType" value="User" required>
+        <label for="firstName">FirstName :</label>
         <input class="userInput" type="text" placeholder="Enter your name" name="firstName" required>
+        <label for="surName">Surname :</label>
         <input class="userInput" type="text" placeholder="Enter your sur name" name="surName" required>
+        <label for="email">Email :</label>
         <input class="userInput" type="email" placeholder="Enter the email" name="email" required>
-        <input class="userInput" type="password" placeholder="Enter the password" name="password" required>
+        <label for="password">Password(create strong passwor) :</label>
+        <div  class="userInput">
+          <input id="passwordAnimation" type="password" placeholder="Enter the password" name="password" required>
+          <i id="icon" onClick="eyeClick()" style="cursor:pointer;" class="fa-regular fa-eye"></i>
+        </div>
+        <label for="confirmPassword">Confirm password :</label>
         <input class="userInput" type="password" placeholder="Enter the password" name="confirmPassword" required>
-        <div>
-          <button type="submit" class="loginButtons">Login</button>
+        <div style="display:flex;justify-content:center;align-items:center;width:100%;">
+          <a href="/login" style="color:rgb(96, 223, 252);text-decoration:none; margin-right:10px;"><span style="color:rgb(96,223,252);margin-right:5px;text-decoration:none;">↩</span>back</a>
+          <button type="submit" class="loginButtons">Send Otp</button>
         </div>
       </div>
     </div>
+    <%if(typeof message!='undefined' && message){%>
+      <div id="notifyDiv">
+        <p id="notify"><%=message%></p>
+      </div>
+    <%}%>
   </div>
   <script src="/loginScript.js"></script>
+  <script>
+    window.onload = function(){
+      notification();
+    }
+  </script>
 </body>
 </html>

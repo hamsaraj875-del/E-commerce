@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //Internal modules
-const port = 3000;
+const port = 3000 || process.env.PORT;
 const login = require("./login");
 const controller = require("../controller/control.js");
 const database = require("../models/database");
@@ -111,6 +111,8 @@ app.get("/home",controller.homePage);
 app.post("/home",controller.homePage);
 app.get("/add",checkHost,controller.add);
 app.post("/add",checkHost,controller.savingData);
+app.get("/addOffer",checkHost,controller.displayOffer);
+app.post("/offer",checkHost,controller.saveOffer);
 app.get("/edit/:id",checkHost,controller.edit);
 app.post("/delete/:id",checkHost,controller.delete);
 app.get("/cart",cartUser,checkUser,controller.displayCart);

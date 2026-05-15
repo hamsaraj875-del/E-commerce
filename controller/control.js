@@ -8,6 +8,7 @@ const fs = require("fs");
 const database = require('../models/database');
 const cartDatabase = require("../models/cartDatabase");
 const historyDatabase = require("../models/historyDatabase");
+const offerDatabase = require("../models/offerDatabase");
 
 //Message handler function 
 
@@ -20,14 +21,15 @@ async function createMessage(req){
 
 exports.homePage = async(req,res,next)=>{
   try{
-    const itemList = await(database.find());
+    const itemList = await database.find();
     const notify = await cartDatabase.find({userId:req.session.userId});
     const historyNotify = await historyDatabase.find({userId:req.session.userId});
+    const offer = await offerDatabase.find();
     let mes = await createMessage(req);
     if(req.session.isLoggedIn){
-      return res.render("index",{message:mes,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName:req.session.userName,itemList,page:"home"});
+      return res.render("index",{message:mes,offer:offer,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName:req.session.userName,itemList,page:"home"});
     }
-    res.render("index",{message:mes,notify:notify,itemList,page:"home",userType:req.session.userType});
+    res.render("index",{message:mes,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
     console.log(err);
@@ -49,7 +51,7 @@ exports.add = async (req,res,next)=>{
     return res.render("add",{historyNotify:historyNotify,notify:notify.length,page:"add",userName:req.session.userName,userType:req.session.userType});
   }
   catch(err){
-    req.session.message = "Unabled to Load the page!";
+    req.session.message = "⚠️ Unabled to Load the page!";
     req.session.save((err)=>{
       return res.redirect("/home")
     });
@@ -58,14 +60,16 @@ exports.add = async (req,res,next)=>{
 
 //Saving the data given
 exports.savingData = async (req,res,next)=>{
-  const {itemName,realPrice,discountPrice,description,key1,key2} = req.body;
+  const {itemName,realPrice,discountPrice,description} = req.body;
+  let {key} = req.body;
+  key = key.split(",");
   const photo = req.file.filename;
   try{
     const oldDetails = await database.findById(req.body.id)
     if(!oldDetails){
-      const details = new database({itemName,realPrice,discountPrice,photo,description,key1,key2});
+      const details = new database({itemName,realPrice,discountPrice,photo,description,key});
       await details.save();
-        req.session.message = "Data saved successfully";
+        req.session.message = "📂 Records saved successfully.";
         req.session.save((err)=>{
           return res.redirect("/home")
         });
@@ -73,17 +77,43 @@ exports.savingData = async (req,res,next)=>{
       oldDetails.itemName = itemName,
       oldDetails.realPrice = realPrice,
       oldDetails.discountPrice = discountPrice,
-      oldDetails.description = description
-      req.session.message = "Data saved successfully";
+      oldDetails.description = description,
+      oldDetails.key = key,
+      req.session.message = "✏️ Data edited successfully!";
       await oldDetails.save();
       res.redirect("/home");
     }
   }
   catch(err){
-    req.session.message = "Error occured while fetching the data Please try again!!"
+    req.session.message = "⚠️ Fetch failed. Try again!";
+    req.session.save();
     return res.redirect("/home");
   }
 }
+
+//Display Offer
+exports.displayOffer = (req,res,next) =>{
+  res.render("addOffer",{page:"addOffer",userType:req.session.userType,userName:req.session.userName});
+}
+
+//Offer Sliding Saving
+exports.saveOffer = async(req,res,next) =>{
+  try{
+    const offerImage = req.file.filename;
+    const offerDetails = new offerDatabase({offerImage});
+    await offerDetails.save();
+    req.session.message = "📂 Records Saved Successfully.";
+    await req.session.save();
+    res.redirect("/home");
+  }
+  catch(err){
+    console.log(err);
+    req.session.message = "⚠️ Unabled To Add Records!";
+    await req.session.save();
+    res.redirect("/home");
+  }
+}
+
 
 //displaying the editing page
 exports.edit=async (req,res,next)=>{
@@ -94,7 +124,7 @@ exports.edit=async (req,res,next)=>{
   }
   catch(err){
     console.log(err);
-    req.session.message="Unabled to load the page";
+    req.session.message="⚠️ Fetch failed. Try again!e";
     await req.session.save();
     return res.redirect("/home")
   }
@@ -132,7 +162,7 @@ exports.checkCart=async (req,res,next)=>{
   const itemId = req.params.id;
   try{
     if(typeof req.session.userId==='undefined'){
-      req.session.message = "login to use Cart";
+      req.session.message = "🛒 Login required to access cart & history";
       await req.session.save()
       return res.redirect("/home");
     }
@@ -234,7 +264,7 @@ exports.buyCheck = async (req,res,next)=>{
   try{
     const itemData = await database.findById(itemId);
     if(!itemData){
-      req.session.message = "item not found";
+      req.session.message = "😟 No Item Found !";
       await req.session.save()
         return res.redirect("/home")
     }
@@ -242,7 +272,7 @@ exports.buyCheck = async (req,res,next)=>{
     const date = new Date().toISOString().split("T")[0];
     const details = new historyDatabase({itemId,userId,date});
     await details.save();
-    req.session.message = "Order Successfully Placed !";
+    req.session.message = `✨ Order ' ${itemData.itemName} ' Confirmed`;
     await req.session.save();
     return res.redirect("/history");
   }catch(err){
@@ -283,7 +313,7 @@ exports.displayCode = async (req,res,next)=>{
     return res.redirect("/history");
   }
   catch(err){
-    req.session.message = "🔴 Payment Failed ! 💳 ";
+    req.session.message = "🔴 Payment Failed !";
     await req.session.save()
     return res.redirect("/history");
   }

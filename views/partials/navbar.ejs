@@ -25,6 +25,9 @@
         <%if(userType == "Host"){%>
           <a href="/add" class="<%=page=='add'?'navbarButtonActive':'navbarButton'%>">Add</a>
         <%}%>
+         <%if(userType == "Host"){%>
+          <a href="/addOffer" class="<%=page=='addOffer'?'navbarButtonActive':'navbarButton'%>">Today Offer</a>
+        <%}%>
         <%if(userType == "User" || userType == "Guest"){%>
           <a href="/cart" class="<%=page=='cart'?'navbarButtonActive':'navbarButton'%>">Cart
             <%if(typeof notify != 'undefined'  && notify.length>0){%>

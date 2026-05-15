@@ -204,7 +204,7 @@ exports.confirmSignUp = [
           otpExpiry:Date.now()+1000*60*2
         }
         await generateEmail(email,req.session.otp.otpCode);
-        req.session.message = `📧 Email has been successfully sent to  ID: ${email.toString().slice(0,6)}`;
+        req.session.message = `📧 Email has been successfully sent to  ID: ${email.toString().slice(0,11)} ....`;
         req.session.save(err=>{
           return res.redirect("/otp");
         });

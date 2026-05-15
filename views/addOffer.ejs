@@ -1,0 +1,21 @@
+<%-include("./partials/navbar")%>
+<link rel="stylesheet" href="/add.css">
+<div class="wholeAdd">
+  <div class="formContainer">
+    <div id="heading">
+      <p>Details..</p>
+    </div>
+    <form class="addForm" action="/offer" enctype="multipart/form-data" method="POST">
+      <%if(typeof oldInput!='undefined'){%>
+        <input type="hidden" name="id" value="<%=oldInput._id%>" required>
+      <%}%>
+      <div id="fileInput" class="inputs">
+        <input type="file" name="file" accept="image/*" required>
+      </div>
+      <div>
+        <button type="submit" id="submitButton"><%=typeof oldInput!='undefined'?'Update':'Submit'%></button>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="/add.js"></script>

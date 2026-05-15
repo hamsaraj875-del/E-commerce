@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="/login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <div id="wholeLogin">
@@ -22,7 +23,10 @@
           </div>
           <input type="hidden" class="hiddenInput" name="userType" value="User" required>
           <input class="userInput" type="email" placeholder="Enter the email" name="email" required>
-          <input class="userInput" type="password" placeholder="Enter the password" name="password" required>
+          <div  class="userInput">
+            <input id="passwordAnimation" type="password" placeholder="Enter the password" name="password" required>
+            <i id="icon" onClick="eyeClick()" style="cursor:pointer;" class="fa-regular fa-eye"></i>
+          </div>
           <div class="Buttons">
             <a href="/signUp"><button type="button" class="loginButtons">Sign Up</button></a>
             <button class="loginButtons" type="submit">Login</button>

@@ -12,6 +12,11 @@
     video.playbackRate = 0.8;
   </script>
 <%}%>
+<%if(typeof offer!='undefined'){%>
+  <div class="offer" data-offer-item='<%- JSON.stringify(offer) %>'>
+    <img class="offerImage">
+  </div>
+<%}%>
 <div class="boxes">
   <%if(itemList.length >0) {%>
     <%itemList.forEach(items=>{%>

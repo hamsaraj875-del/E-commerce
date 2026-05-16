@@ -29,7 +29,7 @@ exports.homePage = async(req,res,next)=>{
     if(req.session.isLoggedIn){
       return res.render("index",{message:mes,offer:offer,historyNotify:historyNotify,notify:notify,userType:req.session.userType,userName:req.session.userName,itemList,page:"home"});
     }
-    res.render("index",{message:mes,itemList,page:"home",userType:req.session.userType});
+    res.render("index",{message:mes,offer:offer,itemList,page:"home",userType:req.session.userType});
   }
   catch(err){
     console.log(err);

@@ -24,11 +24,11 @@
         <div id="imageBox">
           <img src="/uploads/<%=items.photo%>">
         </div>
-        <div id="contentBox">
+        <div class="contentBox">
           <div class="nameAndOffer">
             <div class="name"><%=items.itemName%>
             </div>
-            <div class="offer"><%=((Number(items.realPrice)-Number(items.discountPrice))/Number(items.realPrice)*100).toFixed(2) %>% OFF 🎉
+            <div class="offerr"><%=((Number(items.realPrice)-Number(items.discountPrice))/Number(items.realPrice)*100).toFixed(2) %>% OFF 🎉
             </div>
           </div>
           <div id="price">Price : <span style="text-decoration:line-through">₹ <%=items.realPrice%></span><span style="margin-left:10px">₹ <%=items.discountPrice%></span>

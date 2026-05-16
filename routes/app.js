@@ -122,7 +122,7 @@ app.post("/deleteCart/:id",checkUser,cartUser,controller.deleteCart);
 app.post("/buyConfirm/:id",checkUser,cartUser,controller.buyCheck);
 app.get("/history",cartUser,checkUser,controller.displayHistory);
 app.get("/buyCode/:id",checkUser,cartUser,controller.displayCode);
-app.get("/logout",checkUser,cartUser,controller.logout);
+app.get("/logout",cartUser,controller.logout);
 app.get("/",controller.pageNotFound);
 
 //Request listener

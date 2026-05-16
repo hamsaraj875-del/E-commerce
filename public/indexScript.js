@@ -16,23 +16,24 @@ btn.forEach(button=>{
   })
 })
 
+
 const offer = document.querySelector(".offer");
-let inde = 0;
-const offerList = JSON.parse(offer.dataset.offerItem);
-const offerImage = document.querySelector(".offerImage");
-
-console.log(offerList);
-function animation(){
-  transition();
-  function transition(){
-    if(inde>=offerList.length){
-      inde=0;
-    }
-    offerImage.src=`/uploads/${offerList[inde].offerImage}`;
-    inde++;
-    console.log("hi");
-    setTimeout(transition,10000);
-  }
+if(offer){
+  let inde = 0;
+  const offerList = JSON.parse(offer.dataset.offerItem);
+  const offerImage = document.querySelector(".offerImage");
+  offerImage.src = `/uploads/${offerList[0].offerImage}`;
+  setInterval(()=>{
+    offerImage.style.opacity = "0";
+    offerImage.style.zIndex="-1";
+    setTimeout(()=>{
+      inde++;
+      if(inde >= offerList.length){
+        inde = 0;
+      }
+      offerImage.src = `/uploads/${offerList[inde].offerImage}`;
+      offerImage.style.opacity = "1";
+      offerImage.style.zIndex = "-1";
+    },500);
+  },6000);
 }
-animation();
-

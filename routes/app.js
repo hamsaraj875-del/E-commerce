@@ -94,7 +94,7 @@ async function cartUser(req,res,next){
   req.session.message = "Login to use cart";
   res.redirect("/login");
 }
-
+app.set('trust proxy', 1); 
 //session default Declaration
 function sessionDefault(req,res,next){
   if(!req.session.userType){

@@ -123,7 +123,12 @@ app.post("/buyConfirm/:id",checkUser,cartUser,controller.buyCheck);
 app.get("/history",cartUser,checkUser,controller.displayHistory);
 app.get("/buyCode/:id",checkUser,cartUser,controller.displayCode);
 app.get("/logout",cartUser,controller.logout);
-app.get("/",controller.pageNotFound);
+app.get("/",controller.homepage);
+
+//404 page not found
+app.use((req, res) => {
+  res.status(404).render("404");
+});
 
 //Request listener
 mongoose.connect(process.env.DB).then(()=>{

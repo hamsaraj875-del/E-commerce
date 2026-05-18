@@ -342,13 +342,6 @@ exports.logout = async (req,res,next)=>{
 }
 
 //page not Found
-exports.pageNotFound = async (req,res,next)=>{
-  try{
-    const notify = await cartDatabase.find({userId:req.session.userId});
-    return res.render("notFound",{notify:notify.length,page:"home",userName:req.session.userName,userType:req.session.userType});
-  }
-  catch(err){
-    console.log(err);
-    return res.redirect("/home");
-  }
+exports.homepage = async (req,res,next)=>{
+  res.redirect("/home");
 }

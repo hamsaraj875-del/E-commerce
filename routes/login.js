@@ -16,6 +16,5 @@ login.post("/loginCheck",loginController.loginCheck);
 login.get("/otp",loginController.otp);
 login.post("/otpChecker",loginController.otpChecker);
 
-login.get("/",controller.pageNotFound);
 
 module.exports = login;
